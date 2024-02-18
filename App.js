@@ -3,6 +3,7 @@ import { Text, TouchableHighlight, View } from "react-native";
 import Header from "./components/Header";
 import ThumbsUp from "./components/Icons/ThumbsUp";
 import ThumbsDown from "./components/Icons/ThumbsDown";
+import Play from "./components/Icons/Play";
 export default function App() {
 	const [counter, setCounter] = useState(0);
 
@@ -24,13 +25,13 @@ export default function App() {
 						<ThumbsDown />
 					</TouchableHighlight>
 				</View>
-				<View className="flex rounded bg-blue-900 p-8">
+				<View className="h-20 w-20 rounded bg-blue-900">
 					<TouchableHighlight
-						className="flex-1 justify-center"
+						className="flex-1 w-20 justify-center items-center rounded"
 						underlayColor={"#34054a"}
 						onPress={() => {}}
 					>
-						<Text className="text-white text-center text-2xl">Play</Text>
+						<Play />
 					</TouchableHighlight>
 				</View>
 				<View className="h-20 w-20 rounded-full bg-green-700 ">
