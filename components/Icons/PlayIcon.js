@@ -1,6 +1,6 @@
 import { Svg, Path, Polygon } from "react-native-svg";
 
-export default function Play() {
+export default function PlayIcon() {
 	return (
 		<Svg
 			height={30}
