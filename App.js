@@ -5,7 +5,7 @@ import ThumbsUpIcon from "./components/Icons/ThumbsUpIcon";
 import ThumbsDownIcon from "./components/Icons/ThumbsDownIcon";
 import PlayIcon from "./components/Icons/PlayIcon";
 import { AuthorizeSpotify } from "./authorization/AuthorizeSpotify";
-import { getValueFor } from "./utils/secureStore";
+import { resumePlayback } from "./api/spotify/playback";
 
 export default function App() {
 	const promptAsync = AuthorizeSpotify();
@@ -16,7 +16,7 @@ export default function App() {
 				<Button
 					title="Login with Spotify"
 					onPress={() => {
-						getValueFor("spotifyToken");
+						resumePlayback();
 					}}
 				></Button>
 				<Button
