@@ -1,26 +1,14 @@
-import { useEffect, useState } from "react";
 import { Button, Text, TouchableHighlight, View } from "react-native";
-import { Linking } from "expo-linking";
 import Header from "./components/Header";
 import CircleButton from "./components/CircleButton";
 import ThumbsUpIcon from "./components/Icons/ThumbsUpIcon";
 import ThumbsDownIcon from "./components/Icons/ThumbsDownIcon";
 import PlayIcon from "./components/Icons/PlayIcon";
-import { CreateSpotifyAuthorizeLink } from "./authorization/CreateSpotifyAuthorizeLink";
-import * as WebBrowser from "expo-web-browser";
+import { AuthorizeSpotify } from "./authorization/AuthorizeSpotify";
+import { getValueFor } from "./utils/secureStore";
+
 export default function App() {
-	const [counter, setCounter] = useState(0);
-	const [spotifyLink, setSpotifyLink] = useState("");
-
-	useEffect(() => {
-		fetchLink = async () => {
-			let link = "";
-			link = await CreateSpotifyAuthorizeLink();
-			if (!spotifyLink && link) setSpotifyLink(link);
-		};
-		fetchLink();
-	}, []);
-
+	const promptAsync = AuthorizeSpotify();
 	return (
 		<View className="flex-1 bg-slate-900 flex-col ">
 			<Header title="Willow Wander" />
@@ -28,10 +16,17 @@ export default function App() {
 				<Button
 					title="Login with Spotify"
 					onPress={() => {
-						spotifyLink &&
-							WebBrowser.openBrowserAsync(spotifyLink, { showTitle: true });
+						getValueFor("spotifyToken");
 					}}
 				></Button>
+				<Button
+					title="Login"
+					onPress={() => {
+						promptAsync.then((openAuthPanel) => {
+							openAuthPanel();
+						});
+					}}
+				/>
 			</View>
 			<View className="h-32 bg-slate-900 justify-center rounded  mb-4 flex-row items-center">
 				{/* Dislike */}

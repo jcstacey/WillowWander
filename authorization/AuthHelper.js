@@ -16,3 +16,9 @@ export const sha256 = async (data) => {
 export const base64encode = (input) => {
 	return Buffer.from(input).toString("base64");
 };
+
+export const createCodeChallenge = async () => {
+	const codeVerifier = generateRandomString(64);
+	const hashed = await sha256(codeVerifier);
+	return base64encode(hashed); // Code Challenge
+};
