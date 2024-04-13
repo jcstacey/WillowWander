@@ -40,7 +40,8 @@ export async function AuthorizeSpotify() {
 					return response.json();
 				})
 				.then((data) => {
-					secureSave("spotifyToken", data.access_token);
+					console.log(data.access_token);
+					secureSave("spotifyToken", `${data.access_token}`);
 				})
 				.catch((err) => {
 					console.log(err);

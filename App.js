@@ -5,7 +5,7 @@ import ThumbsUpIcon from "./components/Icons/ThumbsUpIcon";
 import ThumbsDownIcon from "./components/Icons/ThumbsDownIcon";
 import PlayIcon from "./components/Icons/PlayIcon";
 import { AuthorizeSpotify } from "./authorization/AuthorizeSpotify";
-import { resumePlayback } from "./api/spotify/playback";
+import { playPause, resumePlayback } from "./api/spotify/playback";
 
 export default function App() {
 	const promptAsync = AuthorizeSpotify();
@@ -44,7 +44,9 @@ export default function App() {
 					<TouchableHighlight
 						className="flex-1 w-full justify-center items-center rounded"
 						underlayColor={"#221489"}
-						onPress={() => {}}
+						onPress={() => {
+							playPause();
+						}}
 					>
 						<PlayIcon />
 					</TouchableHighlight>

@@ -6,7 +6,6 @@ export async function secureSave(key, value) {
 
 export async function getSecureValueAsync(key) {
 	let result = await SecureStore.getItemAsync(key);
-	console.log(result);
 	if (result) {
 		return result;
 	} else {
