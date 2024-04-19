@@ -43,6 +43,22 @@ export async function resumePlayback() {
 	console.log(data);
 }
 
+export async function playSong(song) {
+	console.log(song.uri)
+	const accessToken = await getSecureValueAsync("spotifyToken");
+	const response = await fetch("https://api.spotify.com/v1/me/player/play", {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: "Bearer " + accessToken,
+		},
+		body: JSON.stringify({
+			"uris": [song.uri],
+			"position_ms": 0
+		}),
+	});
+}
+
 export async function pausePlayback() {
 	const accessToken = await getSecureValueAsync("spotifyToken");
 	const response = await fetch("https://api.spotify.com/v1/me/player/pause", {
@@ -51,7 +67,36 @@ export async function pausePlayback() {
 			Authorization: "Bearer " + accessToken,
 		},
 	});
+}
 
+export async function nextSong() {
+	const accessToken = await getSecureValueAsync("spotifyToken");
+	const response = await fetch("https://api.spotify.com/v1/me/player/next", {
+		method: "POST",
+		headers: {
+			Authorization: "Bearer " + accessToken,
+		},
+	});
+}
+
+export async function previousSong() {
+	const accessToken = await getSecureValueAsync("spotifyToken");
+	const response = await fetch("https://api.spotify.com/v1/me/player/previous", {
+		method: "POST",
+		headers: {
+			Authorization: "Bearer " + accessToken,
+		},
+	});
+}
+
+export async function getSongRecommendation(limit = 10) {
+	const accessToken = await getSecureValueAsync("spotifyToken");
+	const response = await fetch(`https://api.spotify.com/v1/recommendations?seed_genres=rock&limit=${limit}`, {
+		method: "GET",
+		headers: {
+			Authorization: "Bearer " + accessToken,
+		},
+	});
 	const data = await response.json();
-	console.log(data);
+	return data?.tracks;
 }
