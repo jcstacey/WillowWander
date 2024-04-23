@@ -17,8 +17,10 @@ export default function GradientButton({
         colors={colors}
         className="flex-1 h-20 rounded items-center justify-center"
       >
-        <Text className="h-min font-bold text-white">{textTop}</Text>
-        <Text className="h-min  text-white">{textBottom}</Text>
+        {textTop && (
+          <Text className="h-min font-bold text-white">{textTop}</Text>
+        )}
+        {textBottom && <Text className="h-min  text-white">{textBottom}</Text>}
       </LinearGradient>
     </Pressable>
   );
