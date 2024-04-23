@@ -24,6 +24,7 @@ import {
 } from "./api/spotify/playback";
 import Pressable from "./components/Pressable";
 import { LinearGradient } from "expo-linear-gradient";
+import GradientButton from "./components/GradientButton";
 
 export default function App() {
   const promptAsync = AuthorizeSpotify();
@@ -39,38 +40,18 @@ export default function App() {
             if (index % 2 === 0) {
               return (
                 <View key={song.id} className="flex flex-row">
-                  <Pressable
-                    classStyle="flex-1 m-1 h-20 rounded"
+                  <GradientButton
                     onPress={() => playSong(recommendation[index])}
-                  >
-                    <LinearGradient
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 1 }}
-                      colors={[colors.purple[800], colors.pink[500]]}
-                      className="flex-1 h-20 rounded items-center justify-center"
-                    >
-                      <Text className="h-min font-bold text-white">{`${recommendation[index]?.name}`}</Text>
-                      <Text className="h-min  text-white">{`${recommendation[index]?.artists[0]?.name}`}</Text>
-                    </LinearGradient>
-                  </Pressable>
-                  <Pressable
-                    classStyle="flex-1 m-1 h-20 rounded"
+                    colors={[colors.purple[800], colors.pink[500]]}
+                    textTop={recommendation[index]?.name}
+                    textBottom={recommendation[index]?.artists[0]?.name}
+                  />
+                  <GradientButton
                     onPress={() => playSong(recommendation[index + 1])}
-                  >
-                    <LinearGradient
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 1 }}
-                      colors={[colors.pink[500], colors.orange[300]]}
-                      className="flex-1 h-20 rounded items-center justify-center"
-                    >
-                      <Text className="h-min font-bold text-white">{`${
-                        recommendation[index + 1]?.name
-                      }`}</Text>
-                      <Text className="h-min text-white">{`${
-                        recommendation[index + 1]?.artists[0]?.name
-                      }`}</Text>
-                    </LinearGradient>
-                  </Pressable>
+                    colors={[colors.pink[500], colors.orange[300]]}
+                    textTop={recommendation[index + 1]?.name}
+                    textBottom={recommendation[index + 1]?.artists[0]?.name}
+                  />
                 </View>
               );
             }
