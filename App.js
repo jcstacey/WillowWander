@@ -22,27 +22,61 @@ import {
   resumePlayback,
   playSong,
 } from "./api/spotify/playback";
+import Pressable from "./components/Pressable";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function App() {
   const promptAsync = AuthorizeSpotify();
   const [recommendation, setRecommendation] = useState();
+
   return (
     <View className="flex-1 bg-slate-900 flex-col ">
       <StatusBar backgroundColor={colors.indigo[950]} />
       <Header title="Playlii" />
-      <View className="flex-1  justify-center rounded mb-2">
-        {recommendation &&
-          recommendation?.map((song) => {
-            return (
-              <Button
-				key={song?.id}
-                onPress={() => {
-                  playSong(song);
-                }}
-				title={`${song?.name} - ${song?.artists[0]?.name}`}
-              ></Button>
-            );
+      <View className="flex-1 rounded m-2 mb-2">
+        <View className="flex-1 mt-4 flex-col">
+          {recommendation?.map((song, index) => {
+            if (index % 2 === 0) {
+              return (
+                <View key={song.id} className="flex flex-row">
+                  <Pressable
+                    classStyle="flex-1 m-1 h-20 rounded"
+                    onPress={() => playSong(recommendation[index])}
+                  >
+                    <LinearGradient
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                      colors={[colors.purple[800], colors.pink[500]]}
+                      className="flex-1 h-20 rounded items-center justify-center"
+                    >
+                      <Text className="h-min font-bold text-white">{`${recommendation[index]?.name}`}</Text>
+                      <Text className="h-min  text-white">{`${recommendation[index]?.artists[0]?.name}`}</Text>
+                    </LinearGradient>
+                  </Pressable>
+                  <Pressable
+                    classStyle="flex-1 m-1 h-20 rounded"
+                    onPress={() => playSong(recommendation[index + 1])}
+                  >
+                    <LinearGradient
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                      colors={[colors.pink[500], colors.orange[300]]}
+                      className="flex-1 h-20 rounded items-center justify-center"
+                    >
+                      <Text className="h-min font-bold text-white">{`${
+                        recommendation[index + 1]?.name
+                      }`}</Text>
+                      <Text className="h-min text-white">{`${
+                        recommendation[index + 1]?.artists[0]?.name
+                      }`}</Text>
+                    </LinearGradient>
+                  </Pressable>
+                </View>
+              );
+            }
           })}
+        </View>
+        {/* Recommend */}
         <View className="mt-10">
           <Button
             className="my-10 bg-red-300"
@@ -53,6 +87,7 @@ export default function App() {
             }}
           ></Button>
         </View>
+        {/* Login */}
         <Button
           title="Login"
           onPress={() => {
